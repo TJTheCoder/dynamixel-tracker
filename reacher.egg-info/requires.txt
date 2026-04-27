@@ -1,0 +1,4 @@
+pybullet==3.2.6
+pypot==5.0.2
+numpy==1.24.4
+absl-py==2.1.0
