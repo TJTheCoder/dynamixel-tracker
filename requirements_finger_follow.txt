@@ -1,5 +1,3 @@
-# Fresh environment install for the robot arm repo plus webcam finger tracking.
-# Use Python 3.10 for this project.
 -e .
 mediapipe==0.10.14
 opencv-contrib-python==4.10.0.84

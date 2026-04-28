@@ -59,7 +59,15 @@ def main(argv):
 		reacher_real = Reacher()
 		time.sleep(0.25)
 		startup_real_joint_positions = reacher_real.get_joint_positions()
-		print("Treating the robot's startup base angle as the simulator's forward direction.")
+		print("Treating the robot's startup pose as the simulator's neutral pose.")
+		print("Startup real joint positions (rad):", startup_real_joint_positions)
+		print(
+			"Startup pose in sim convention (rad):",
+			real_to_sim_joint_positions(
+				startup_real_joint_positions,
+				startup_real_joint_positions,
+			),
+		)
 		real_to_sim = FLAGS.real_to_sim
 		sim_to_real = FLAGS.sim_to_real
 		if real_to_sim and sim_to_real:

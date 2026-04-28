@@ -5,7 +5,6 @@ from __future__ import annotations
 import numpy as np
 
 
-BASE_JOINT_INDEX = 0
 SHOULDER_JOINT_INDEX = 1
 
 
@@ -20,8 +19,9 @@ def real_to_sim_joint_positions(
 ) -> np.ndarray:
     """Convert hardware joint readings into the simulator convention.
 
-    When a startup pose is provided, the base joint is re-zeroed so the launch
-    heading becomes the simulator's forward-facing reference.
+    When a startup pose is provided, the launch pose is re-zeroed so the
+    simulator's canonical neutral pose matches how the robot was positioned
+    when the script started.
     """
 
     sim_joint_positions = np.asarray(real_joint_positions, dtype=np.float64).reshape(3).copy()
@@ -29,7 +29,7 @@ def real_to_sim_joint_positions(
         startup_real_joint_positions = np.asarray(
             startup_real_joint_positions, dtype=np.float64
         ).reshape(3)
-        sim_joint_positions[BASE_JOINT_INDEX] -= startup_real_joint_positions[BASE_JOINT_INDEX]
+        sim_joint_positions -= startup_real_joint_positions
 
     sim_joint_positions[SHOULDER_JOINT_INDEX] *= -1
     return wrap_joint_angles(sim_joint_positions)
@@ -47,6 +47,6 @@ def sim_to_real_joint_positions(
         startup_real_joint_positions = np.asarray(
             startup_real_joint_positions, dtype=np.float64
         ).reshape(3)
-        real_joint_positions[BASE_JOINT_INDEX] += startup_real_joint_positions[BASE_JOINT_INDEX]
+        real_joint_positions += startup_real_joint_positions
 
     return wrap_joint_angles(real_joint_positions)

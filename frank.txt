@@ -1,0 +1,20 @@
+reacher/reacher_finger_follow.py (line 1)
+This is the main program. It reads the camera, tracks the finger, maps screen motion to X/Z targets, runs IK, updates the sim, and sends commands to the real robot.
+
+reacher/joint_conventions.py (line 1)
+This is the glue between sim and hardware. real_to_sim_joint_positions(...) and sim_to_real_joint_positions(...) are what make the startup pose act like “straight up.”
+
+reacher/inverse_kinematics.py (line 1)
+This is what turns a target xyz point into joint angles. If the robot misses targets or behaves strangely, this is one of the first places to inspect.
+
+reacher/forward_kinematics.py (line 1)
+This defines where the end effector should be for a given joint configuration. IK depends on this being correct.
+
+reacher/dynamixel_interface.py (line 1)
+This is the hardware I/O layer. It scans motors, reads joint positions, and sends goal positions to the real arm.
+
+reacher/reacher_sim_utils.py (line 1)
+This sets up the PyBullet visualizer and loads the sim robot. Important when the sim behavior looks wrong.
+
+reacher/data/pupper_arm.urdf (line 1)
+This is the simulator’s robot model. Only important if you’re changing the sim geometry or joint definitions.
